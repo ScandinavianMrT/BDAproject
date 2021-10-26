@@ -1,10 +1,12 @@
 library(readr)
+library(plyr)
 library(dplyr)
 library(caret)
 library(Amelia)
 library(moments)
 library(psych)
 library(corrplot)
+library(imputeTS)
 
 #Load datasets
 life <- read_csv("data/life_expectancy.csv")
@@ -15,29 +17,25 @@ military <- select(read_csv("data/military_expenditure.csv"), 1, 45:60) # delete
 #Save descriptive statistics as dataframe using psych package
 life_summary <- as.data.frame(describe(life))
 
-#Impute NaN's using Amelia, leaving out first 3 columns in process
+#Impute NA's using mean of respective countries in places where some values are present for that country
 missmap(life)
-life_amelia <- amelia(as.data.frame(life), m = 3, idvars = c("Country","Year","Status"))
-write.amelia(obj = life_amelia, file.stem = "life_imp")
-life_imputed = read_csv("life_imp3.csv")
-missmap(life_imputed)
+life_imp1 <- life %>%  group_by(Country) %>%
+  mutate_all(funs(ifelse(is.na(.), mean(., na.rm = TRUE),.)))
+
+#Impute remaining NA values by mean of column using imputeTS package
+life_imp2 <- na_mean(life_imp1)
+missmap(life_imp2)
 
 #Change categorical value of Status variable to binary
-life_imputed$Status <- ifelse(life_imputed$Status == "Developed", 1,0)
+life_imp2$Status <- ifelse(life_imp2$Status == "Developed", 1,0)
 
 #Standardize data to have unit variance and zero mean as data variables are 
 # given in incomensurable units and regression model will rely on distance measure
-life_imputed[6:23] <- scale(life_imputed[6:23], center = TRUE, scale = TRUE)
+life_stand <- life_imp2
+life_stand[4:22] <- scale(life_stand[4:22], center = TRUE, scale = TRUE)
 
-#Correlation table
-life_cor <- cor(life_imputed[6:22])
+#Correlation table and plot
+life_cor <- cor(life_imp2[4:22])
 life_cor_matrix <- as.data.frame(life_cor)
 palette <- colorRampPalette(c("green", "white", "red")) (20)
-heatmap(x = life_cor, col = palette, symm = TRUE)
-
-#Outlier detection - Fit simple model to calculate Cook's distance
-simple_model <- lm(life_imputed$`Life expectancy` ~ .,, data = life_imputed)
-cooks <- cooks.distance(simple_model)
-#filter out values with over 4 times the mean cook's distance
-outliers <- cooks[cooks > mean(cooks) * 4]
-
+corrplot(life_cor, method = 'color')
