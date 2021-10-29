@@ -25,7 +25,7 @@ names(military_long)[names(military_long) == 'Name'] <- 'Country'
 names(military_long)[names(military_long) == 'variable'] <- 'Year'
 names(military_long)[names(military_long) == 'value'] <- 'Military Expenditure'
 
-#Merge military and emission dataset with df dataset
+#Merge military and emission dataset with life dataset
 life_emiss <- merge(life, emission_long, by = c("Country", "Year"))
 df <- merge(life_emiss, military_long, by = c("Country", "Year"))
 
@@ -50,7 +50,6 @@ df_stand <- df_imp2
 df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
 
 #Correlation table and plot
-df_cor <- cor(df_imp2[4:22])
+df_cor <- cor(df_imp2[4:24])
 cor_matrix <- as.data.frame(df_cor)
-palette <- colorRampPalette(c("green", "white", "red")) (20)
 corrplot(df_cor, method = 'color')
