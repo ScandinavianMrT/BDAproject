@@ -15,6 +15,7 @@ life <- read_csv("data/life_expectancy.csv")
 env_var <- read_csv("data/environmental_variables.csv")
 emission <- select(read_csv("data/emission_data.csv"), 1, 251:266) # delete all columns except country and 2000:2015
 military <- select(read_csv("data/military_expenditure.csv"), 1, 45:60) # delete all columns except country and 2000:2015
+HappinessMean <- select(read_csv("data/Hapmean.csv"),2,9)
 
 #Convert emission and military data to long format for merging, renaming some variables
 emission_long <- melt(setDT(emission), id.vars = "Country")[order(Country, -variable),]
@@ -25,9 +26,10 @@ names(military_long)[names(military_long) == 'Name'] <- 'Country'
 names(military_long)[names(military_long) == 'variable'] <- 'Year'
 names(military_long)[names(military_long) == 'value'] <- 'Military Expenditure'
 
-#Merge military and emission dataset with life dataset
+#Merge military, emission and happiness dataset with life dataset
 life_emiss <- merge(life, emission_long, by = c("Country", "Year"))
-df <- merge(life_emiss, military_long, by = c("Country", "Year"))
+df1 <- merge(life_emiss, military_long, by = c("Country", "Year"))
+df <- merge (df1,HappinessMean, by=c("Country"), all.x = TRUE)
 
 #Save descriptive statistics as dataframe using psych package - #HOW TO GET CORRECT VALUES???
 df_summary <- as.data.frame(describe(df), digits=2)
@@ -53,3 +55,4 @@ df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
 df_cor <- cor(df_imp2[4:24])
 cor_matrix <- as.data.frame(df_cor)
 corrplot(df_cor, method = 'color')
+
