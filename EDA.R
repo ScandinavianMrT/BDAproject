@@ -25,6 +25,7 @@ military_long <- melt(setDT(military), id.vars = "Name")[order(Name, -variable),
 names(military_long)[names(military_long) == 'Name'] <- 'Country'
 names(military_long)[names(military_long) == 'variable'] <- 'Year'
 names(military_long)[names(military_long) == 'value'] <- 'Military Expenditure'
+names(HappinessMean)[2] <- "Happiness Mean Score"
 
 #Merge military, emission and happiness dataset with life dataset
 life_emiss <- merge(life, emission_long, by = c("Country", "Year"))
