@@ -47,6 +47,13 @@ missmap(df_imp2)
 #Change categorical value of Status variable to binary
 df_imp2$Status <- ifelse(df_imp2$Status == "Developed", 1,0)
 
+#Outlier detection
+boxplot(df_imp2[,4]) #Haiti 36
+boxplot(df_imp2[,6]) #Infant death India
+boxplot(df_imp2[,10])#Measles weird values
+boxplot(df_imp2[,25])#Example for no outliers
+
+
 #Standardize data to have unit variance and zero mean as data variables are 
 # given in incomensurable units and regression model will rely on distance measure
 df_stand <- df_imp2
@@ -56,4 +63,7 @@ df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
 df_cor <- cor(df_imp2[4:24])
 cor_matrix <- as.data.frame(df_cor)
 corrplot(df_cor, method = 'color')
+
+#Export datatable
+write.csv(df_stand,"FinalDf.csv", row.names = FALSE)
 
