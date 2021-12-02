@@ -1,6 +1,7 @@
 library(readr)
 library(plyr)
 library(dplyr)
+library(ggpubr)
 library(tidyr)
 library(caret)
 library(Amelia)
@@ -53,22 +54,47 @@ boxplot(df_imp2[,6]) #Infant death India
 boxplot(df_imp2[,10])#Measles weird values
 boxplot(df_imp2[,25])#Example for no outliers
 
+#Change Wrong Value for Haiti 2010
+which(df_imp2 == 36.3, arr.ind=TRUE)
+df_imp2[994,4]=60.5
+print(df_imp2[994,4])
+
+#Change wrong Values for India Infant death
+which(df_imp2== "India", arr.ind=TRUE)
+df_imp2[1058,6]=66.7
+df_imp2[1059,6]=64.4
+df_imp2[1060,6]=62.2
+df_imp2[1061,6]=60
+df_imp2[1062,6]=57.8
+df_imp2[1063,6]=55.7
+df_imp2[1064,6]=53.7
+df_imp2[1065,6]= 51.6
+df_imp2[1066,6]=49.4
+df_imp2[1067,6]=47.3
+df_imp2[1068,6]=45.1
+df_imp2[1069,6]=43
+df_imp2[1070,6]=40.9
+df_imp2[1071,6]=38.8
+df_imp2[1072,6]=36.9
+df_imp2[1073,6]=34.9
+
+#Check normality
+ggdensity(df_imp2$`Life expectancy`, main="Life Expectancy Distribution", 
+          xlab="Life expectancy")
+ggqqplot(df_imp2$Alcohol,main="Distribution of Alcohol Consumption", 
+         xlab="Consumption")  +scale_x_continuous(expand = c(0, 0), limits = c(0, NA)) + 
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
 
 #Standardize data to have unit variance and zero mean as data variables are 
 # given in incomensurable units and regression model will rely on distance measure
 df_stand <- df_imp2
 df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
-write.csv(df_stand,"data/data_proc.csv", row.names = FALSE)
 
 #Correlation table and plot
-df_cor <- cor(df_imp2[4:24])
+df_cor <- cor(df_imp2[4:25])
 cor_matrix <- as.data.frame(df_cor)
-<<<<<<< HEAD
-corrplot(df_cor, method = 'color')
-=======
 corrplot(df_cor, method = 'color')
 
 #Export datatable
 write.csv(df_stand,"FinalDf.csv", row.names = FALSE)
 
->>>>>>> 167b2a28f6c5464f04fe0f2cc7bdc20e49bb2222
