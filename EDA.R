@@ -48,6 +48,7 @@ df_imp2$Status <- ifelse(df_imp2$Status == "Developed", 1,0)
 # given in incomensurable units and regression model will rely on distance measure
 df_stand <- df_imp2
 df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
+write.csv(df_stand,"data/data_proc.csv", row.names = FALSE)
 
 #Correlation table and plot
 df_cor <- cor(df_imp2[4:24])
