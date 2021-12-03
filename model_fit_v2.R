@@ -7,10 +7,6 @@ library(plm)
 library(janitor)
 library(stargazer)
 
-#disable scientific notation
-options(scipen = 100)
-
-#load data, clean namesw
 data <- read_csv("data/data_proc.csv")
 df <- data %>%
   janitor::clean_names()
@@ -53,7 +49,7 @@ sum_rand <- stargazer(random, type="text")
 print(sum_rand)
 
 #Breush Pagan Test - null hypothesis that the variance of the residuals is constant
-lmtest::bptest(ols)
+lmtest::bptest(fixed)
 #p-value less than 0.05 so we can reject null and conclude heteroscedacity is present
 #ols does not work with heteroscedacity #https://www.r-bloggers.com/2016/01/how-to-detect-heteroscedasticity-and-rectify-it/
 
@@ -74,5 +70,12 @@ pcdtest(fixed, test="lm")
 pcdtest(fixed, test="cd")
 #p-value is less than 0.05 - we reject the null and conclude that there is cross-sectional dependence.
 
-#test for serial correlation
+#Breusch-Godfrey/Wooldridge test for serial correlation in panel models
 pbgtest(fixed)
+
+#Durbin-Watson test for serial correlation in panel models
+pdwtest(fixed)
+#null rejected - residuals are autocorrelated
+
+fix_fit <- fitted(fixed)
+predict(fit)
