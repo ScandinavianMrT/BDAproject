@@ -1,0 +1,65 @@
+
+Fixed effects - omitted variables - Summary statistics
+=============================================================
+                                      Dependent variable:    
+                                  ---------------------------
+                                               Y             
+-------------------------------------------------------------
+X2alcohol                                  -0.083***         
+                                            (0.013)          
+                                                             
+X2percentage_expenditure                     0.008           
+                                            (0.006)          
+                                                             
+X2hepatitis_b                               0.011*           
+                                            (0.007)          
+                                                             
+X2measles                                  -0.025***         
+                                            (0.006)          
+                                                             
+X2bmi                                        0.007           
+                                            (0.007)          
+                                                             
+X2polio                                      0.007           
+                                            (0.006)          
+                                                             
+X2total_expenditure                         -0.003           
+                                            (0.006)          
+                                                             
+X2diphtheria                               0.019***          
+                                            (0.007)          
+                                                             
+X2hiv_aids                                 -0.232***         
+                                            (0.009)          
+                                                             
+X2gdp                                      0.098***          
+                                            (0.011)          
+                                                             
+X2population                                 0.015           
+                                            (0.036)          
+                                                             
+X2thinness_1_19_years                        0.009           
+                                            (0.014)          
+                                                             
+X2thinness_5_9_years                        -0.010           
+                                            (0.014)          
+                                                             
+X2income_composition_of_resources          0.052***          
+                                            (0.011)          
+                                                             
+X2schooling                                0.215***          
+                                            (0.015)          
+                                                             
+X2emission                                   0.030           
+                                            (0.049)          
+                                                             
+X2military_expenditure                      -0.003           
+                                            (0.023)          
+                                                             
+-------------------------------------------------------------
+Observations                                 2,485           
+R2                                           0.427           
+Adjusted R2                                  0.383           
+F Statistic                       101.106*** (df = 17; 2308) 
+=============================================================
+Note:                             *p<0.1; **p<0.05; ***p<0.01

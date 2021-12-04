@@ -1,0 +1,65 @@
+
+OLS model - full data - Summary statistics
+============================================================
+                                     Dependent variable:    
+                                 ---------------------------
+                                              Y             
+------------------------------------------------------------
+Xstatus                                   0.151***          
+                                           (0.034)          
+                                                            
+Xadult_mortality                          -0.356***         
+                                           (0.011)          
+                                                            
+Xinfant_deaths                            -0.051***         
+                                           (0.012)          
+                                                            
+Xalcohol                                  -0.029**          
+                                           (0.013)          
+                                                            
+Xpercentage_expenditure                   0.053***          
+                                           (0.011)          
+                                                            
+Xhepatitis_b                              0.031***          
+                                           (0.011)          
+                                                            
+Xmeasles                                  -0.036***         
+                                           (0.012)          
+                                                            
+Xbmi                                      0.109***          
+                                           (0.012)          
+                                                            
+Xunder_five_deaths                         0.024*           
+                                           (0.013)          
+                                                            
+Xpolio                                    0.110***          
+                                           (0.012)          
+                                                            
+Xtotal_expenditure                         -0.007           
+                                           (0.010)          
+                                                            
+Xthinness_5_9_years                       -0.061***         
+                                           (0.013)          
+                                                            
+Xincome_composition_of_resources          0.190***          
+                                           (0.016)          
+                                                            
+Xschooling                                0.229***          
+                                           (0.018)          
+                                                            
+Xemission                                   0.004           
+                                           (0.019)          
+                                                            
+Xmilitary_expenditure                     0.075***          
+                                           (0.018)          
+                                                            
+Constant                                  -0.027**          
+                                           (0.011)          
+                                                            
+------------------------------------------------------------
+Observations                                2,485           
+R2                                          0.787           
+Adjusted R2                                 0.786           
+F Statistic                      570.004*** (df = 16; 2468) 
+============================================================
+Note:                            *p<0.1; **p<0.05; ***p<0.01

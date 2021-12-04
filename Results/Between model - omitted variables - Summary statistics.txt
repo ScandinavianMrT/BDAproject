@@ -1,0 +1,71 @@
+
+Between model - omitted variables - Summary statistics
+=============================================================
+                                      Dependent variable:    
+                                  ---------------------------
+                                               Y             
+-------------------------------------------------------------
+X2status                                     0.061           
+                                            (0.112)          
+                                                             
+X2alcohol                                   -0.046           
+                                            (0.044)          
+                                                             
+X2percentage_expenditure                     0.013           
+                                            (0.102)          
+                                                             
+X2hepatitis_b                               -0.118*          
+                                            (0.067)          
+                                                             
+X2measles                                   -0.116           
+                                            (0.076)          
+                                                             
+X2bmi                                      0.157***          
+                                            (0.059)          
+                                                             
+X2polio                                     -0.082           
+                                            (0.145)          
+                                                             
+X2total_expenditure                          0.058           
+                                            (0.037)          
+                                                             
+X2diphtheria                               0.413***          
+                                            (0.143)          
+                                                             
+X2hiv_aids                                 -0.372***         
+                                            (0.036)          
+                                                             
+X2gdp                                        0.130           
+                                            (0.080)          
+                                                             
+X2population                                 0.074           
+                                            (0.062)          
+                                                             
+X2thinness_1_19_years                       -0.078           
+                                            (0.170)          
+                                                             
+X2thinness_5_9_years                         0.058           
+                                            (0.173)          
+                                                             
+X2income_composition_of_resources          0.232***          
+                                            (0.067)          
+                                                             
+X2schooling                                0.200***          
+                                            (0.056)          
+                                                             
+X2emission                                  -0.016           
+                                            (0.066)          
+                                                             
+X2military_expenditure                       0.079           
+                                            (0.070)          
+                                                             
+Constant                                    -0.020           
+                                            (0.034)          
+                                                             
+-------------------------------------------------------------
+Observations                                  160            
+R2                                           0.886           
+Adjusted R2                                  0.871           
+F Statistic                        60.758*** (df = 18; 141)  
+=============================================================
+Note:                             *p<0.1; **p<0.05; ***p<0.01
