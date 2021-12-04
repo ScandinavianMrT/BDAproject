@@ -1,0 +1,78 @@
+
+Linear regression model on aggregated data + happiness data - Summary statistics
+=============================================================
+                                      Dependent variable:    
+                                  ---------------------------
+                                       `Life expectancy`     
+-------------------------------------------------------------
+Status                                       0.021           
+                                            (0.085)          
+                                                             
+`Adult Mortality`                          -0.592***         
+                                            (0.062)          
+                                                             
+`infant deaths`                             -0.002           
+                                            (0.036)          
+                                                             
+Alcohol                                      0.024           
+                                            (0.034)          
+                                                             
+`percentage expenditure`                     0.011           
+                                            (0.077)          
+                                                             
+`Hepatitis B`                               -0.069           
+                                            (0.051)          
+                                                             
+Measles                                     -0.110           
+                                            (0.077)          
+                                                             
+BMI                                         0.096**          
+                                            (0.046)          
+                                                             
+`under-five deaths`                         -0.075*          
+                                            (0.043)          
+                                                             
+Polio                                       -0.131           
+                                            (0.111)          
+                                                             
+`Total expenditure`                          0.044           
+                                            (0.028)          
+                                                             
+Diphtheria                                 0.354***          
+                                            (0.109)          
+                                                             
+`HIV/AIDS`                                  -0.062           
+                                            (0.041)          
+                                                             
+GDP                                          0.036           
+                                            (0.062)          
+                                                             
+Population                                  0.122**          
+                                            (0.049)          
+                                                             
+`thinness 1-19 years`                       -0.134           
+                                            (0.130)          
+                                                             
+`thinness 5-9 years`                         0.154           
+                                            (0.131)          
+                                                             
+`Income composition of resources`          0.142***          
+                                            (0.052)          
+                                                             
+Schooling                                   0.101**          
+                                            (0.045)          
+                                                             
+`Mean happiness`                            0.083**          
+                                            (0.039)          
+                                                             
+Constant                                   -0.454**          
+                                            (0.214)          
+                                                             
+-------------------------------------------------------------
+Observations                                  160            
+R2                                           0.935           
+Adjusted R2                                  0.926           
+Residual Std. Error                    0.260 (df = 139)      
+F Statistic                        100.089*** (df = 20; 139) 
+=============================================================
+Note:                             *p<0.1; **p<0.05; ***p<0.01
