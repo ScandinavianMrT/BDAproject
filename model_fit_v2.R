@@ -7,13 +7,13 @@ library(plm)
 library(janitor)
 library(stargazer)
 library(ggplot2)
-library(esquisse)
 
 data <- read_csv("data/FinalDF.csv")
 df <- data %>%
   janitor::clean_names()
 
-attach(df)
+pdf <- pdata.frame(df, index = c("country", "year"))
+attach(pdf)
 
 Y <- cbind(life_expectancy)
 X <- cbind(status,adult_mortality,infant_deaths,alcohol,percentage_expenditure,
@@ -28,18 +28,22 @@ X2 <- cbind(status,alcohol,percentage_expenditure,
             thinness_5_9_years,income_composition_of_resources,schooling,
             emission,military_expenditure)
 
-pdf <- pdata.frame(df, index = c("country", "year"))
-attach(pdf)
+
+cols <- c("adult_mortality","infant_deaths","alcohol","percentage_expenditure",
+                  "hepatitis_b","measles","bmi","under_five_deaths","polio","total_expenditure",
+                  "thinness_5_9_years","income_composition_of_resources","schooling",
+                  "emission","military_expenditure")
+
 
 #Fit ols model and inspect residuals
 ols <- plm(Y ~ X, data = pdf, model = "pooling")
 sum_ols <- stargazer(ols, type="text", title = "OLS model - full data - Summary statistics", out = "Results/OLS model - full data - Summary statistics.txt")
-pdf$ols_preds <- predict(ols)
+pdf$ols_preds <- as.list.data.frame(predict(ols))
 pdf$ols_residuals <- as.list.data.frame(residuals(ols))
 #Omit correlated variables
 ols2 <- plm(Y ~ X2, data = pdf, model = "pooling")
 sum_ols2 <- stargazer(ols2, type="text", title = "OLS model - omitted variables - Summary statistics", out = "Results/OLS model - omitted variables - Summary statistics.txt")
-pdf$ols2_preds <- predict(ols2)
+pdf$ols2_preds <- as.list.data.frame(predict(ols2))
 pdf$ols2_residuals <- as.list.data.frame(residuals(ols2))
 
 #fit fixed effect model - Subtracts mean of group for each group to isolate variations within group
@@ -100,64 +104,92 @@ sum_lm_agg <- stargazer(lm, type="text", title = "Linear regression model on agg
 lm_agg_preds <- predict(lm_agg)
 lm_agg_residuals <- as.list.data.frame(residuals(lm_agg))
 
-#Plots of residuals vs. fitted values + predicted vs. fitted values
+#Check if residuals are normally distributed
+shapiro.test(pdf$ols_residuals)
+shapiro.test(pdf$fixed_residuals)
+shapiro.test(pdf$random_residuals)
+shapiro.test(pdf$ols2_residuals)
+shapiro.test(pdf$fixed2_residuals)
+shapiro.test(pdf$random2_residuals)
+shapiro.test(lm_agg_residuals) # p is somewhat significant
+#All models, except lm, have p < 0.0001 so we can conclude residuals are non-normal across the board
 
-qqnorm(ols_residuals)
-qqline(ols_residuals)
+#Plots 
+
+boxplot(pdf[cols], main="Value distributions for Life Expectancy dataset", las=2)
 
 plot(agg_data$`Life expectancy`, lm_agg_preds, 
        ylab="Predicted", xlab="actual values", 
        main="Predicted vs. actual values for Linear regression model") 
 
-plot(agg_data$`Life expectancy`, lm_agg_residuals, 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for Linear regression model") 
+plot(fitted(lm_agg), lm_agg_residuals, 
+     ylab="Residuals", xlab="Fitted values", 
+     main="Residuals vs. fitted values for Linear regression model") 
 
-plot(ols_preds, ols_residuals, 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for OLS model") 
+qqnorm(lm_agg_residuals) +
+qqline(lm_agg_residuals)
 
-plot(Y, predict(ols), 
+p <- as.list.data.frame(predict(ols))
+r <- as.list.data.frame(residuals(ols))
+
+plot(as.list.data.frame(predict(ols)),as.list.data.frame(residuals(ols)), 
+     ylab="Residuals", xlab="Fitted values", 
+     main="Residuals vs. Fitted values for OLS model") 
+
+plot(Y, pdf$ols_preds, 
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for OLS model") 
 
-plot(Y, resid(ols2), 
+qqnorm(ols_residuals) +
+qqline(ols_residuals)
+
+plot(as.list.data.frame(predict(ols2)),as.list.data.frame(residuals(ols2)), 
      ylab="Residuals", xlab="predicted values", 
      main="Residuals vs. predicted values for OLS model with omitted variables") 
 
-plot(agg_data$`Life expectancy`, lm_res, 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for Linear model") 
+qqnorm(ols2_residuals) +
+qqline(ols2_residuals)
 
-plot(Y, resid(fixed), 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for Fixed effects model") 
+plot(as.list.data.frame(predict(fixed)),as.list.data.frame(residuals(fixed)), 
+     ylab="Residuals", xlab="Fitted values", 
+     main="Residuals vs. fitted values for Fixed effects model") 
 
 plot(Y, predict(fixed), 
-     ylab="Predicted", xlab="actual values", 
+     ylab="Predicted", xlab="Actual values", 
      main="Predicted vs. actual values for Fixed effects model") 
 
-plot(Y, resid(fixed2), 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for Fixed effects model with omitted variables") 
+qqnorm(fixed_residuals) +
+qqline(fixed_residuals)
+
+plot(as.list.data.frame(predict(fixed2)),as.list.data.frame(residuals(fixed2)), 
+     ylab="Residuals", xlab="Fitted values", 
+     main="Residuals vs. Fitted values for Fixed effects model with omitted variables") 
 
 plot(Y, predict(fixed2), 
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for Fixed effects model with omitted variables")
 
-plot(Y, resid(random), 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for random effects model") 
+qqnorm(fixed2_residuals) +
+qqline(fixed2_residuals)
+
+plot(as.list.data.frame(predict(random)),as.list.data.frame(residuals(random)), 
+     ylab="Residuals", xlab="Fitted values", 
+     main="Residuals vs. fitted values for random effects model") 
 
 plot(Y, predict(random), 
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for random effects model") 
 
-plot(Y, resid(random2), 
-     ylab="Residuals", xlab="predicted values", 
-     main="Residuals vs. predicted values for random effects model with omitted variables") 
+qqnorm(random_residuals) +
+qqline(random_residuals)
+
+plot(as.list.data.frame(predict(random2)),as.list.data.frame(residuals(random2)), 
+     ylab="Residuals", xlab="Fitted values", 
+     main="Residuals vs. fitted values for random effects model with omitted variables") 
 
 plot(Y, predict(random2), 
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for random effects model with omitted variables")
 
+qqnorm(random2_residuals) +
+qqline(random2_residuals)
