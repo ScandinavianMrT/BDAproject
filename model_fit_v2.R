@@ -34,17 +34,22 @@ attach(pdf)
                     "thinness_5_9_years","income_composition_of_resources","schooling",
                     "emission","military_expenditure")
   
+  RMSE = function(m, o){
+    sqrt(mean((m - o)^2))
+  }
   
   #Fit ols model and inspect residuals
   ols <- plm(Y ~ X, data = pdf, model = "pooling")
   sum_ols <- stargazer(ols, type="text", title = "OLS model - full data - Summary statistics", out = "Results/OLS model - full data - Summary statistics.txt")
   pdf$ols_preds <- as.list.data.frame(predict(ols))
   pdf$ols_residuals <- as.list.data.frame(residuals(ols))
+  ols_error <- RMSE(pdf$ols_preds, pdf$life_expectancy)
   #Omit correlated variables
   ols2 <- plm(Y ~ X2, data = pdf, model = "pooling")
   sum_ols2 <- stargazer(ols2, type="text", title = "OLS model - omitted variables - Summary statistics", out = "Results/OLS model - omitted variables - Summary statistics.txt")
   pdf$ols2_preds <- as.list.data.frame(predict(ols2))
   pdf$ols2_residuals <- as.list.data.frame(residuals(ols2))
+  ols2_error <- RMSE(pdf$ols2_preds, pdf$life_expectancy)
   
   #fit fixed effect model - Subtracts mean of group for each group to isolate variations within group
   fixed <- plm(Y ~ X, data = pdf, model = "within")
@@ -53,12 +58,14 @@ attach(pdf)
   fixed_preds <- as.data.frame(as.numeric(fixed$model[[1]] - fixed$residuals))
   pdf$fixed_preds <- fixed_preds[,1]
   pdf$fixed_residuals <- as.list.data.frame(residuals(fixed))
+  fixed_error <- RMSE(pdf$fixed_preds, pdf$life_expectancy)
   #Omit correlated variables
   fixed2 <- plm(Y ~ X2, data = pdf, model = "within")
   sum_fixed2 <- stargazer(fixed2, type="text", title = "Fixed effects - omitted variables - Summary statistics", out = "Results/Fixed effects - omitted variables - Summary statistics.txt")
   fixed2_preds <- as.data.frame(as.numeric(fixed2$model[[1]] - fixed2$residuals))
   pdf$fixed2_preds <- fixed2_preds[,1]
   pdf$fixed2_residuals <- as.list.data.frame(residuals(fixed2))
+  fixed2_error <- RMSE(pdf$fixed2_preds, pdf$life_expectancy)
   
   #fit random effect model
   random <- plm(Y ~ X, data = pdf, model = "random")
@@ -67,12 +74,14 @@ attach(pdf)
   random_preds <- as.data.frame(as.numeric(random$model[[1]] - random$residuals))
   pdf$random_preds <- random_preds[,1]
   pdf$random_residuals <- as.list.data.frame(residuals(random))
+  random_error <- RMSE(pdf$random_preds, pdf$life_expectancy)
   #Omit correlated variables
   random2 <- plm(Y ~ X2, data = pdf, model = "random")
   sum_random2 <- stargazer(random2, type="text", title = "Random effects model - omitted variables - Summary statistics", out = "Results/Random effects model - omitted variables - Summary statistics.txt")
   random2_preds <- as.data.frame(as.numeric(random2$model[[1]] - random2$residuals))
   pdf$random2_preds <- random2_preds[,1]
   pdf$random2_residuals <- as.list.data.frame(residuals(random2))
+  random2_error <- RMSE(pdf$random2_preds, pdf$life_expectancy)
   
   #Breush Pagan Test - null hypothesis that the variance of the residuals is constant
   lmtest::bptest(fixed)
