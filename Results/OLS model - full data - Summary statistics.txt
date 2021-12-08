@@ -5,56 +5,56 @@ OLS model - full data - Summary statistics
                                  ---------------------------
                                               Y             
 ------------------------------------------------------------
-Xstatus                                   0.151***          
-                                           (0.034)          
+Xstatus                                   1.464***          
+                                           (0.329)          
                                                             
-Xadult_mortality                          -0.356***         
-                                           (0.011)          
+Xadult_mortality                          -3.444***         
+                                           (0.108)          
                                                             
-Xinfant_deaths                            -0.051***         
-                                           (0.012)          
+Xinfant_deaths                            -0.496***         
+                                           (0.120)          
                                                             
-Xalcohol                                  -0.029**          
-                                           (0.013)          
+Xalcohol                                  -0.276**          
+                                           (0.125)          
                                                             
-Xpercentage_expenditure                   0.053***          
-                                           (0.011)          
+Xpercentage_expenditure                   0.517***          
+                                           (0.107)          
                                                             
-Xhepatitis_b                              0.031***          
-                                           (0.011)          
+Xhepatitis_b                              0.302***          
+                                           (0.107)          
                                                             
-Xmeasles                                  -0.036***         
-                                           (0.012)          
+Xmeasles                                  -0.344***         
+                                           (0.117)          
                                                             
-Xbmi                                      0.109***          
-                                           (0.012)          
+Xbmi                                      1.057***          
+                                           (0.120)          
                                                             
-Xunder_five_deaths                         0.024*           
-                                           (0.013)          
+Xunder_five_deaths                         0.232*           
+                                           (0.130)          
                                                             
-Xpolio                                    0.110***          
-                                           (0.012)          
+Xpolio                                    1.068***          
+                                           (0.113)          
                                                             
-Xtotal_expenditure                         -0.007           
-                                           (0.010)          
+Xtotal_expenditure                         -0.069           
+                                           (0.097)          
                                                             
-Xthinness_5_9_years                       -0.061***         
-                                           (0.013)          
+Xthinness_5_9_years                       -0.593***         
+                                           (0.129)          
                                                             
-Xincome_composition_of_resources          0.190***          
-                                           (0.016)          
+Xincome_composition_of_resources          1.833***          
+                                           (0.159)          
                                                             
-Xschooling                                0.229***          
-                                           (0.018)          
+Xschooling                                2.211***          
+                                           (0.173)          
                                                             
-Xemission                                   0.004           
-                                           (0.019)          
+Xemission                                   0.041           
+                                           (0.185)          
                                                             
-Xmilitary_expenditure                     0.075***          
-                                           (0.018)          
+Xmilitary_expenditure                     0.723***          
+                                           (0.177)          
                                                             
-Constant                                  -0.027**          
-                                           (0.011)          
+Constant                                  69.020***         
+                                           (0.108)          
                                                             
 ------------------------------------------------------------
 Observations                                2,485           

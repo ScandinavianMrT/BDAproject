@@ -5,50 +5,50 @@ Fixed effects model - Full data - Summary statistics
                                  ---------------------------
                                               Y             
 ------------------------------------------------------------
-Xadult_mortality                          -0.059***         
-                                           (0.008)          
+Xadult_mortality                          -0.571***         
+                                           (0.073)          
                                                             
-Xinfant_deaths                            -0.382***         
-                                           (0.045)          
+Xinfant_deaths                            -3.694***         
+                                           (0.436)          
                                                             
-Xalcohol                                  -0.117***         
-                                           (0.015)          
+Xalcohol                                  -1.134***         
+                                           (0.143)          
                                                             
-Xpercentage_expenditure                     0.011           
-                                           (0.007)          
+Xpercentage_expenditure                     0.107           
+                                           (0.068)          
                                                             
-Xhepatitis_b                              0.021***          
-                                           (0.007)          
+Xhepatitis_b                              0.207***          
+                                           (0.068)          
                                                             
-Xmeasles                                  -0.021***         
-                                           (0.007)          
+Xmeasles                                  -0.200***         
+                                           (0.068)          
                                                             
-Xbmi                                        0.008           
-                                           (0.008)          
+Xbmi                                        0.073           
+                                           (0.076)          
                                                             
-Xunder_five_deaths                        -0.082***         
-                                           (0.025)          
+Xunder_five_deaths                        -0.796***         
+                                           (0.244)          
                                                             
-Xpolio                                     0.016**          
-                                           (0.007)          
+Xpolio                                     0.156**          
+                                           (0.065)          
                                                             
-Xtotal_expenditure                         -0.0005          
-                                           (0.007)          
+Xtotal_expenditure                         -0.004           
+                                           (0.069)          
                                                             
-Xthinness_5_9_years                       -0.033***         
-                                           (0.012)          
+Xthinness_5_9_years                       -0.316***         
+                                           (0.118)          
                                                             
-Xincome_composition_of_resources          0.062***          
-                                           (0.012)          
+Xincome_composition_of_resources          0.599***          
+                                           (0.117)          
                                                             
-Xschooling                                0.202***          
-                                           (0.017)          
+Xschooling                                1.953***          
+                                           (0.164)          
                                                             
-Xemission                                 -0.266***         
-                                           (0.062)          
+Xemission                                 -2.571***         
+                                           (0.598)          
                                                             
-Xmilitary_expenditure                       0.033           
-                                           (0.026)          
+Xmilitary_expenditure                       0.319           
+                                           (0.250)          
                                                             
 ------------------------------------------------------------
 Observations                                2,485           

@@ -140,15 +140,15 @@ plot(Y, pdf$ols_preds,
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for OLS model") 
 
-qqnorm(ols_residuals) +
-qqline(ols_residuals)
+qqnorm(pdf$ols_residuals) +
+qqline(pdf$ols_residuals)
 
 plot(as.list.data.frame(predict(ols2)),as.list.data.frame(residuals(ols2)), 
      ylab="Residuals", xlab="predicted values", 
      main="Residuals vs. predicted values for OLS model with omitted variables") 
 
-qqnorm(ols2_residuals) +
-qqline(ols2_residuals)
+qqnorm(pdf$ols2_residuals) +
+qqline(pdf$ols2_residuals)
 
 plot(as.list.data.frame(predict(fixed)),as.list.data.frame(residuals(fixed)), 
      ylab="Residuals", xlab="Fitted values", 
@@ -158,8 +158,8 @@ plot(Y, predict(fixed),
      ylab="Predicted", xlab="Actual values", 
      main="Predicted vs. actual values for Fixed effects model") 
 
-qqnorm(fixed_residuals) +
-qqline(fixed_residuals)
+qqnorm(pdf$fixed_residuals) +
+qqline(pdf$fixed_residuals)
 
 plot(as.list.data.frame(predict(fixed2)),as.list.data.frame(residuals(fixed2)), 
      ylab="Residuals", xlab="Fitted values", 
@@ -169,8 +169,8 @@ plot(Y, predict(fixed2),
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for Fixed effects model with omitted variables")
 
-qqnorm(fixed2_residuals) +
-qqline(fixed2_residuals)
+qqnorm(pdf$fixed2_residuals) +
+qqline(pdf$fixed2_residuals)
 
 plot(as.list.data.frame(predict(random)),as.list.data.frame(residuals(random)), 
      ylab="Residuals", xlab="Fitted values", 
@@ -180,8 +180,8 @@ plot(Y, predict(random),
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for random effects model") 
 
-qqnorm(random_residuals) +
-qqline(random_residuals)
+qqnorm(pdf$random_residuals) +
+qqline(pdf$random_residuals)
 
 plot(as.list.data.frame(predict(random2)),as.list.data.frame(residuals(random2)), 
      ylab="Residuals", xlab="Fitted values", 
@@ -191,5 +191,5 @@ plot(Y, predict(random2),
      ylab="Predicted", xlab="actual values", 
      main="Predicted vs. actual values for random effects model with omitted variables")
 
-qqnorm(random2_residuals) +
-qqline(random2_residuals)
+qqnorm(pdf$random2_residuals) +
+qqline(pdf$random2_residuals)
