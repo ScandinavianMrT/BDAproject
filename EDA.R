@@ -89,7 +89,7 @@ ggqqplot(df_imp2$Alcohol,main="Distribution of Alcohol Consumption",
 #Standardize data to have unit variance and zero mean as data variables are 
 #given in incomensurable units
 df_stand <- df_imp2
-df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
+df_stand[5:24] <- scale(df_stand[5:24], center = TRUE, scale = TRUE)
 
 #Correlation table and plot
 df_cor <- cor(df_imp2[4:24])
