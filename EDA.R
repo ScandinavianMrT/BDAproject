@@ -50,7 +50,7 @@ missmap(df_imp2)
 df_imp2$Status <- ifelse(df_imp2$Status == "Developed", 1,0)
 
 #Outlier detection
-boxplot(df_imp2[,4]) #Haiti 36
+boxplot(df_imp2[,4],ylab="Life Expectancy") #Haiti 36
 boxplot(df_imp2[,6]) #Infant death India
 boxplot(df_imp2[,10])#Measles weird values
 boxplot(df_imp2[,25])#Example for no outliers
@@ -89,7 +89,7 @@ ggqqplot(df_imp2$Alcohol,main="Distribution of Alcohol Consumption",
 #Standardize data to have unit variance and zero mean as data variables are 
 #given in incomensurable units
 df_stand <- df_imp2
-df_stand[5:24] <- scale(df_stand[5:24], center = TRUE, scale = TRUE)
+df_stand[4:24] <- scale(df_stand[4:24], center = TRUE, scale = TRUE)
 
 #Correlation table and plot
 df_cor <- cor(df_imp2[4:24])
