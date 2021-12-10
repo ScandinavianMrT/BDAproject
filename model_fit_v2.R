@@ -7,6 +7,7 @@ library(plm)
 library(janitor)
 library(stargazer)
 library(ggplot2)
+library(openxlsx)
 
 data <- read_csv("data/FinalDF.csv")
 df <- data %>%
@@ -82,6 +83,8 @@ attach(pdf)
   pdf$random2_preds <- random2_preds[,1]
   pdf$random2_residuals <- as.list.data.frame(residuals(random2))
   random2_error <- RMSE(pdf$random2_preds, pdf$life_expectancy)
+  
+  errors <- write.xlsx(data.frame(ols_error, ols2_error, fixed_error,fixed2_error,random_error, random2_error), "Results/RMSE.xlsx")
   
   #Breush Pagan Test - null hypothesis that the variance of the residuals is constant
   lmtest::bptest(fixed)
