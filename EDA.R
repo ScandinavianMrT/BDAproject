@@ -29,10 +29,26 @@ names(military_long)[names(military_long) == 'value'] <- 'Military Expenditure'
 names(HappinessMean)[names(HappinessMean) == 'Mean'] <- 'Mean happiness'
 
 
-#Merge military, emission and happiness dataset with life dataset
+#Merge military, emission dataset with life dataset
 life_emiss <- merge(life, emission_long, by = c("Country", "Year"))
 df1 <- merge(life_emiss, military_long, by = c("Country", "Year"))
 
+#Create ggplot for missingness divided by developed/developing
+df1$sumvar=1
+df1_t1 <- aggregate(. ~ Status, data=df1, function(x) {sum(is.na(x))}, na.action = NULL)
+df1_t1 = df1_t1[,c(1,4:(length(colnames(df1_t1))-1))]
+df1_t1$total = 0
+for(i in 2:(length(colnames(df1_t1))-2)){
+  df1_t1$total = df1_t1$total+df1_t1[,i]
+}
+df1_t1$freq <- aggregate(sumvar ~ Status, data=df1, function(x) sum(x))$sumvar
+for(i in 2:(length(colnames(df1_t1))-2)){
+  df1_t1[,i]=df1_t1[,i]/df1_t1[,length(colnames(df1_t1))]
+}
+df1_t1$total = df1_t1$total/(df1_t1$freq * (length(colnames(df1_t1))-3))
+df1_t1=df1_t1[,1:(length(colnames(df1_t1))-1)]
+df1_t_melt = melt(df1_t1,id=1)
+ggplot(data=df1_t_melt, aes(x=variable, y=value, fill=Status))+geom_bar(stat="identity",color="black", position=position_dodge())+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),axis.title.x = element_blank())
 
 #Save descriptive statistics as dataframe using psych package - #HOW TO GET CORRECT VALUES???
 df_summary <- as.data.frame(describe(df1), digits=2)
